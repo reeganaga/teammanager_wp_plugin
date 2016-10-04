@@ -13,7 +13,6 @@ License: GPLv2
 <?php
 add_action('init','create_team_member');
 add_action('admin_init','my_admin');
-add_action( 'save_post', 'add_movie_review_fields', 10, 2 );
 // add_filter( 'template_include', 'include_template_function', 1 );
 
 function create_team_member() {
@@ -82,26 +81,6 @@ function create_team_member() {
 
 
 
-function add_movie_review_fields( $movie_review_id, $movie_review ) {
-    // Check post type for movie reviews
-    if ( $movie_review->post_type == 'movie_reviews' ) {
-        // Store data in post meta table if present in post data
-
-		if ( isset( $_POST['teamManagerPosition'] ) && $_POST['teamManagerPosition'] !='' ){
-			update_post_meta($movie_review_id, 'teamManagerPosition', $_POST['teamManagerPosition']);
-		}
-		if ( isset( $_POST['teamManagerEmail'] ) && $_POST['teamManagerEmail'] !='' ){
-			update_post_meta($movie_review_id, 'teamManagerEmail', $_POST['teamManagerEmail']);
-		}
-		if ( isset( $_POST['teamManagerWebsite'] ) && $_POST['teamManagerWebsite'] !='' ){
-			update_post_meta($movie_review_id, 'teamManagerWebsite', $_POST['teamManagerWebsite']);
-		}
-		if ( isset( $_POST['teamManagerImage'] ) && $_POST['teamManagerImage'] !='' ){
-			update_post_meta($movie_review_id, 'teamManagerImage', $_POST['teamManagerImage']);
-		}        
-
-    }
-}
 
 function front_team_member(){
     ob_start();
@@ -115,8 +94,6 @@ function show_team_member($movie_review){
 	$jhf_values = array('');
 	// The Loop
 	if ( $queryTeam->have_posts() ) { ?>
-
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<div class="row text-center" style="background: #2a9ede;color: #fff;padding-top: 30px;">
 
 	<?php while ( $queryTeam->have_posts() ) { ?>
@@ -147,4 +124,10 @@ function show_team_member($movie_review){
 		// no posts found
 	}
 }
+
+function adding_bootstrap() {
+	wp_enqueue_style( 'my-plugins', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', false ); 
+}
+add_action( 'wp_enqueue_scripts', 'adding_bootstrap' );
+
 ?>
