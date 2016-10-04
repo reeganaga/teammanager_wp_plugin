@@ -125,9 +125,16 @@ function show_team_member($movie_review){
 	}
 }
 
+// Register style sheet.
+
+/**
+ * Register style sheet.
+ */
 function adding_bootstrap() {
-	wp_enqueue_style( 'my-plugins', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', false ); 
+	wp_register_style( 'my-plugin', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+	wp_enqueue_style( 'my-plugin' );
 }
 add_action( 'wp_enqueue_scripts', 'adding_bootstrap' );
+
 
 ?>
